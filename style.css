@@ -8,13 +8,24 @@ main {
   display: flex;
 }
 section:first-child {
-  padding-top: 8rem;
+  padding-top: 10rem;
   padding-right: 15rem;
   padding-left: 4rem;
 }
 section > div {
-  border: 2px black solid;
+  border: 1px black solid;
   margin: 2rem;
   height: 5rem;
   width: 5rem;
+}
+table {
+  padding-left: 15rem;
+  padding-top: 5rem;
+}
+th {
+  width: 6rem;
+  font-weight: normal;
+}
+td {
+  text-align: center;
 }
