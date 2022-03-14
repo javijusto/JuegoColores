@@ -19,8 +19,8 @@ section > div {
   width: 5rem;
 }
 table {
-  padding-left: 15rem;
-  padding-top: 5rem;
+  margin-left: 15rem;
+  margin-top: 5rem;
 }
 th {
   width: 6rem;
