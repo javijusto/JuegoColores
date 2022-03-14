@@ -65,30 +65,17 @@ function colorAleatorio(rgb) {
   }
 }
 
-const topBoxColor = topBox.style.backgroundColor;
-const midBoxColor = midBox.style.backgroundColor;
-const botBoxColor = botBox.style.backgroundColor;
-console.log(topBoxColor);
-
-topBox.onclick = () => {
-  if (topBoxColor === `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`) {
-    console.log("1 win");
-  }
-  console.log("1 fail");
-};
-
-midBox.onclick = () => {
-  if (midBoxColor === `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`) {
+function boxClick(e) {
+  const item = e.target;
+  if (item.style.backgroundColor === `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`) {
     console.log("1 win");
   } else console.log("1 fail");
-};
+}
+topBox.addEventListener("click", boxClick);
+midBox.addEventListener("click", boxClick);
+botBox.addEventListener("click", boxClick);
 
-botBox.onclick = () => {
-  if (botBoxColor === `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`) {
-    console.log("1 win");
-  } else console.log("1 fail");
-};
-
+let count = document.querySelectorAll("td");
 let winCount = document.querySelector("#win");
 let loseCount = document.querySelector("#lose");
 
@@ -107,6 +94,6 @@ function tdClickHandle(e) {
 
   item.textContent = counter;
 }
-
+/* 
 winCount.addEventListener("click", tdClickHandle);
-loseCount.addEventListener("click", tdClickHandle);
+loseCount.addEventListener("click", tdClickHandle); */
