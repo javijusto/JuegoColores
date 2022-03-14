@@ -11,26 +11,15 @@ const rgb = numeroAleatorio();
 
 cuadroIzquierda.innerHTML = "<p>RGB: " + rgb + "</p>";
 
-console.log(rgb[0]);
+console.log(rgb);
 console.log(rgb.toString());
 
 const topBox = document.querySelector("#top");
 const midBox = document.querySelector("#mid");
 const botBox = document.querySelector("#bot");
-//prueba de vinculación
-/* topBox.setAttribute(
-  "style",
-  `background-color: rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`
-  );
-  midBox.setAttribute(
-    "style",
-    `background-color: rgb(${rgb[0] + 30}, ${rgb[1]}, ${rgb[2] + 30})`
-    );
-    botBox.setAttribute(
-      "style",
-      `background-color: rgb(${rgb[0] + 40}, ${rgb[1] + 40}, ${rgb[2]})`
-      ); */
+
 colorAleatorio(rgb);
+
 function colorAleatorio(rgb) {
   if (rgb[0] < 85) {
     topBox.setAttribute(
@@ -59,7 +48,8 @@ function colorAleatorio(rgb) {
       "style",
       `background-color: rgb(${rgb[0] + 40}, ${rgb[1] + 40}, ${rgb[2]})`
     );
-  } else {
+  }
+  if (rgb[0] < 170 && rgb[0] > 85) {
     topBox.setAttribute(
       "style",
       `background-color: rgb(${rgb[0] + 30}, ${rgb[1]}, ${rgb[2] + 30})`
@@ -74,3 +64,49 @@ function colorAleatorio(rgb) {
     );
   }
 }
+
+const topBoxColor = topBox.style.backgroundColor;
+const midBoxColor = midBox.style.backgroundColor;
+const botBoxColor = botBox.style.backgroundColor;
+console.log(topBoxColor);
+
+topBox.onclick = () => {
+  if (topBoxColor === `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`) {
+    console.log("1 win");
+  }
+  console.log("1 fail");
+};
+
+midBox.onclick = () => {
+  if (midBoxColor === `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`) {
+    console.log("1 win");
+  } else console.log("1 fail");
+};
+
+botBox.onclick = () => {
+  if (botBoxColor === `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`) {
+    console.log("1 win");
+  } else console.log("1 fail");
+};
+
+let winCount = document.querySelector("#win");
+let loseCount = document.querySelector("#lose");
+
+/////Contador de clicks, falta enlazar similitud de color con  contador de wins y fails
+
+function tdClickHandle(e) {
+  const item = e.target;
+
+  if (!item.hasAttribute("data-count")) {
+    item.setAttribute("data-count", 0);
+  }
+
+  const counter = +item.dataset.count + 1;
+
+  item.setAttribute("data-count", counter);
+
+  item.textContent = counter;
+}
+
+winCount.addEventListener("click", tdClickHandle);
+loseCount.addEventListener("click", tdClickHandle);
