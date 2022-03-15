@@ -6,20 +6,6 @@ function numeroAleatorio() {
   return aleatorios;
 }
 
-const cuadroIzquierda = document.querySelector("section p");
-const rgb = numeroAleatorio();
-
-cuadroIzquierda.innerHTML = "<p>RGB: " + rgb + "</p>";
-
-console.log(rgb);
-console.log(rgb.toString());
-
-const topBox = document.querySelector("#top");
-const midBox = document.querySelector("#mid");
-const botBox = document.querySelector("#bot");
-
-colorAleatorio(rgb);
-
 function colorAleatorio(rgb) {
   if (rgb[0] < 85) {
     topBox.setAttribute(
@@ -65,6 +51,17 @@ function colorAleatorio(rgb) {
   }
 }
 
+function gameOver(){
+  location.href = "gameover.html";
+}
+
+function juego(){
+  rgb = numeroAleatorio();
+  cuadroIzquierda.innerHTML = "<p>RGB: " + rgb + "</p>";
+  console.log(rgb.toString());
+  colorAleatorio(rgb);
+}
+
 //funcion actualizada con el marcador.
 function boxClick(e) {
   const item = e.target;
@@ -79,6 +76,7 @@ function boxClick(e) {
 
     winCount.textContent = counter;
     console.log("1 win");
+    juego();
   }
   if (item.style.backgroundColor !== `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`) {
     if (!loseCount.hasAttribute("data-count")) {
@@ -91,12 +89,24 @@ function boxClick(e) {
 
     loseCount.textContent = counter1;
     console.log("1 fail");
+    gameOver();
   }
+
 }
+
+const cuadroIzquierda = document.querySelector("section p");
+const topBox = document.querySelector("#top");
+const midBox = document.querySelector("#mid");
+const botBox = document.querySelector("#bot");
+
 topBox.addEventListener("click", boxClick);
 midBox.addEventListener("click", boxClick);
 botBox.addEventListener("click", boxClick);
 
+var rgb;
+juego();
+
 let count = document.querySelectorAll("td");
 let winCount = document.querySelector("#win");
 let loseCount = document.querySelector("#lose");
+
