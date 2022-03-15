@@ -32,7 +32,7 @@ function colorAleatorio(rgb) {
     );
     botBox.setAttribute(
       "style",
-      `background-color: rgb(${rgb[0] + 40}, ${rgb[1] + 40}, ${rgb[2]})`
+      `background-color: rgb(${rgb[0] + 40}, ${rgb[1]}, ${rgb[2] + 40})`
     );
   }
   if (rgb[0] > 170) {
@@ -65,11 +65,33 @@ function colorAleatorio(rgb) {
   }
 }
 
+//funcion actualizada con el marcador.
 function boxClick(e) {
   const item = e.target;
+
   if (item.style.backgroundColor === `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`) {
+    if (!winCount.hasAttribute("data-count")) {
+      winCount.setAttribute("data-count", 0);
+    }
+    const counter = +winCount.dataset.count + 1;
+
+    winCount.setAttribute("data-count", counter);
+
+    winCount.textContent = counter;
     console.log("1 win");
-  } else console.log("1 fail");
+  }
+  if (item.style.backgroundColor !== `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`) {
+    if (!loseCount.hasAttribute("data-count")) {
+      loseCount.setAttribute("data-count", 0);
+    }
+
+    const counter1 = +loseCount.dataset.count + 1;
+
+    loseCount.setAttribute("data-count", counter1);
+
+    loseCount.textContent = counter1;
+    console.log("1 fail");
+  }
 }
 topBox.addEventListener("click", boxClick);
 midBox.addEventListener("click", boxClick);
@@ -78,22 +100,3 @@ botBox.addEventListener("click", boxClick);
 let count = document.querySelectorAll("td");
 let winCount = document.querySelector("#win");
 let loseCount = document.querySelector("#lose");
-
-/////Contador de clicks, falta enlazar similitud de color con  contador de wins y fails
-
-function tdClickHandle(e) {
-  const item = e.target;
-
-  if (!item.hasAttribute("data-count")) {
-    item.setAttribute("data-count", 0);
-  }
-
-  const counter = +item.dataset.count + 1;
-
-  item.setAttribute("data-count", counter);
-
-  item.textContent = counter;
-}
-/* 
-winCount.addEventListener("click", tdClickHandle);
-loseCount.addEventListener("click", tdClickHandle); */
