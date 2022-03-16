@@ -51,11 +51,11 @@ function colorAleatorio(rgb) {
   }
 }
 
-function gameOver(){
+function gameOver() {
   location.href = "gameover.html";
 }
 
-function juego(){
+function juego() {
   rgb = numeroAleatorio();
   cuadroIzquierda.innerHTML = "<p>RGB: " + rgb + "</p>";
   console.log(rgb.toString());
@@ -76,7 +76,6 @@ function boxClick(e) {
 
     winCount.textContent = counter;
     console.log("1 win");
-    juego();
   }
   if (item.style.backgroundColor !== `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`) {
     if (!loseCount.hasAttribute("data-count")) {
@@ -89,9 +88,8 @@ function boxClick(e) {
 
     loseCount.textContent = counter1;
     console.log("1 fail");
-    gameOver();
   }
-
+  juego();
 }
 
 const cuadroIzquierda = document.querySelector("section p");
@@ -109,4 +107,3 @@ juego();
 let count = document.querySelectorAll("td");
 let winCount = document.querySelector("#win");
 let loseCount = document.querySelector("#lose");
-
