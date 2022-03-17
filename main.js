@@ -51,8 +51,9 @@ function colorAleatorio(rgb) {
   }
 }
 
-function gameOver() {
-  location.href = "gameover.html";
+function gameOver(aciertos) {
+  window.alert("GAME OVER\nPuntuación: " + aciertos);
+  location.reload();
 }
 
 function juego() {
@@ -75,7 +76,6 @@ function boxClick(e) {
     winCount.setAttribute("data-count", counter);
 
     winCount.textContent = counter;
-    console.log("1 win");
   }
   if (item.style.backgroundColor !== `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`) {
     if (!loseCount.hasAttribute("data-count")) {
@@ -87,11 +87,17 @@ function boxClick(e) {
     loseCount.setAttribute("data-count", counter1);
 
     loseCount.textContent = counter1;
-    console.log("1 fail");
+    console.log(winCount.textContent);
+    if(counter1===3){
+      gameOver(winCount.textContent);
+    }
   }
   juego();
 }
 
+
+var rgb;
+var countFinal = 0;
 const cuadroIzquierda = document.querySelector("section p");
 const topBox = document.querySelector("#top");
 const midBox = document.querySelector("#mid");
@@ -101,7 +107,6 @@ topBox.addEventListener("click", boxClick);
 midBox.addEventListener("click", boxClick);
 botBox.addEventListener("click", boxClick);
 
-var rgb;
 juego();
 
 let count = document.querySelectorAll("td");
