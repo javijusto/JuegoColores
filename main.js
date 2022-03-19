@@ -51,20 +51,48 @@ function colorAleatorio(rgb) {
   }
 }
 
+//funcion game over PERDER
 function gameOver(aciertos) {
-  window.alert("GAME OVER\nPuntuación: " + aciertos);
   location.reload();
+  window.alert("GAME OVER\nPuntuación: " + aciertos);
+  
 }
-
+//funcion victoria GANAR
+function victoria(fallos) {
+  location.reload();
+  window.alert("YOU WIN\nFallos: " + fallos);
+  
+}
+//funcion juego, cada llamada es una ronda 
 function juego() {
   rgb = numeroAleatorio();
   cuadroIzquierda.innerHTML = "<p>RGB: " + rgb + "</p>";
   console.log(rgb.toString());
   colorAleatorio(rgb);
 }
+//funcion para mostrar puntuacion de fallos
+function PuntoLose(lose) {
+  return new Promise((resolve) => {
+    loseCount.textContent = lose;
+    setTimeout(()=>{
+      resolve();
+    ;}, 200
+    );
+  });
+}
+//funcion para mostrar puntuacion de aciertos
+function PuntoWin(win) {
+  return new Promise((resolve) => {
+    winCount.textContent = win;
+    setTimeout(()=>{
+      resolve();
+    ;}, 200
+    );
+  });
+}
 
-//funcion actualizada con el marcador.
-function boxClick(e) {
+//funcion asincrona que actualiza el marcador y reejecuta el juego()
+async function boxClick(e) {
   const item = e.target;
 
   if (item.style.backgroundColor === `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`) {
@@ -75,7 +103,11 @@ function boxClick(e) {
 
     winCount.setAttribute("data-count", counter);
 
-    winCount.textContent = counter;
+    await PuntoWin(counter);
+
+    if(counter===3){
+      victoria(loseCount.textContent);
+    }
   }
   if (item.style.backgroundColor !== `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`) {
     if (!loseCount.hasAttribute("data-count")) {
@@ -86,29 +118,31 @@ function boxClick(e) {
 
     loseCount.setAttribute("data-count", counter1);
 
-    loseCount.textContent = counter1;
+    await PuntoLose(counter1);
+    
     console.log(winCount.textContent);
-    if(counter1===3){
+    if(counter1>=3){
       gameOver(winCount.textContent);
     }
   }
   juego();
 }
 
-
+//variables
 var rgb;
 var countFinal = 0;
+//selectores
 const cuadroIzquierda = document.querySelector("section p");
 const topBox = document.querySelector("#top");
 const midBox = document.querySelector("#mid");
 const botBox = document.querySelector("#bot");
-
+//escucha 
 topBox.addEventListener("click", boxClick);
 midBox.addEventListener("click", boxClick);
 botBox.addEventListener("click", boxClick);
-
+//inicio del juego
 juego();
-
+//selectores
 let count = document.querySelectorAll("td");
 let winCount = document.querySelector("#win");
 let loseCount = document.querySelector("#lose");
