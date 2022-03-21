@@ -19,7 +19,7 @@ section{
   width: 48%;
   height: 100%;
   margin:1rem;
-  margin-top:4rem;
+  margin-top:6rem;
   padding:0.5rem;
 }
 
@@ -60,7 +60,7 @@ section > div {
 
 footer{
   position: relative;
-  top: 38rem;
+  top: 42rem;
   width: 100%;
   text-align: center;
 }
