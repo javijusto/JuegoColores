@@ -2,14 +2,44 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>Juego</title>
+    <title>JCOLOR</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="icon" href="img/paleta.jpg">
   </head>
   <body>
+    <header>
+      <img src="img/pregunta.png" alt="Interrogante" onclick="help()">
+    </header>
     <main>
       <section>
-        <p></p>
+        <div>
+          <h3 class="help">Instrucciones</h3>
+          <p class="help">Adivina a cual de los tres colorres de la derecha pertenece el código RGB de la izquierda.
+             Consigue 3 aciertos y gana la partida. 
+             Pierdes si fallas tres veces.
+             Puedes descargar el código fuente del juego desde el enlace de abajo.</p>
+        </div>
+        <div>
+          <h4></h4>
+        </div>
+        <div>
+          <table border="1">
+            <thead>
+              <tr>
+                <th>Aciertos</th>
+                <th>Errores</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="win">0</td>
+                <td id="lose">0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
       <section>
         <div id="top"></div>
@@ -17,20 +47,9 @@
         <div id="bot"></div>
       </section>
     </main>
-    <table border="1">
-      <thead>
-        <tr>
-          <th>Aciertos</th>
-          <th>Fallos</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td id="win">0</td>
-          <td id="lose">0</td>
-        </tr>
-      </tbody>
-    </table>
+    <footer>
+        <p><a href="https://github.com/javijusto/JuegoColores">Repositorio del proyecto</a></p>
+    </footer>
   </body>
   <script src="main.js"></script>
 </html>

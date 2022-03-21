@@ -1,4 +1,23 @@
-function numeroAleatorio() {
+var display= false; //controla el display de texto
+
+function help(){ //muestra instrucciones
+  console.log("ey");
+  const info = document.getElementsByClassName("help");
+  if(display === false){
+    for(i=0; i<info.length; i++){
+      info[i].style.color = "black";
+    }
+    display=true;
+  }
+  else {
+    for(i=0; i<info.length; i++){
+      info[i].style.color = "white";
+    }
+    display=false;
+  }
+}
+
+function numeroAleatorio() { //genera el codigo
   var aleatorios = [];
   for (let i = 0; i < 3; i++) {
     aleatorios[i] = Math.floor(Math.random() * 256);
@@ -53,15 +72,31 @@ function colorAleatorio(rgb) {
 
 //funcion game over PERDER
 function gameOver(aciertos) {
-  location.reload();
-  window.alert("GAME OVER\nPuntuación: " + aciertos);
-  
+  return new Promise((resolve) => {
+    swal({
+      title: "DERROTA",
+      text: "Aciertos: " + aciertos,
+      icon: "error",
+      button: "Nueva partida"
+    });
+    setTimeout(()=>{
+      resolve();
+    }, 1000);
+  });
 }
 //funcion victoria GANAR
 function victoria(fallos) {
-  location.reload();
-  window.alert("YOU WIN\nFallos: " + fallos);
-  
+  return new Promise((resolve) => {
+    swal({
+      title: "VICTORIA",
+      text: "Errores: " + fallos,
+      icon: "success",
+      button: "Nueva partida",
+    });
+    setTimeout(()=>{
+      resolve();
+    }, 1000);
+  });
 }
 //funcion juego, cada llamada es una ronda 
 function juego() {
@@ -76,8 +111,7 @@ function PuntoLose(lose) {
     loseCount.textContent = lose;
     setTimeout(()=>{
       resolve();
-    ;}, 200
-    );
+    ;}, 250);
   });
 }
 //funcion para mostrar puntuacion de aciertos
@@ -86,8 +120,7 @@ function PuntoWin(win) {
     winCount.textContent = win;
     setTimeout(()=>{
       resolve();
-    ;}, 200
-    );
+    ;}, 250);
   });
 }
 
@@ -107,6 +140,11 @@ async function boxClick(e) {
 
     if(counter===3){
       victoria(loseCount.textContent);
+      await PuntoLose(0);
+      await PuntoWin(0);
+
+      winCount.dataset.count=0;
+      loseCount.dataset.count=0;
     }
   }
   if (item.style.backgroundColor !== `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`) {
@@ -121,8 +159,13 @@ async function boxClick(e) {
     await PuntoLose(counter1);
     
     console.log(winCount.textContent);
-    if(counter1>=3){
+    if(counter1===3){
       gameOver(winCount.textContent);
+      await PuntoLose(0);
+      await PuntoWin(0);
+      winCount.dataset.count=0;
+      loseCount.dataset.count=0;
+      
     }
   }
   juego();
@@ -132,17 +175,17 @@ async function boxClick(e) {
 var rgb;
 var countFinal = 0;
 //selectores
-const cuadroIzquierda = document.querySelector("section p");
+const cuadroIzquierda = document.querySelector("section div h4");
 const topBox = document.querySelector("#top");
 const midBox = document.querySelector("#mid");
 const botBox = document.querySelector("#bot");
+let count = document.querySelectorAll("td");
+let winCount = document.querySelector("#win");
+let loseCount = document.querySelector("#lose");
 //escucha 
 topBox.addEventListener("click", boxClick);
 midBox.addEventListener("click", boxClick);
 botBox.addEventListener("click", boxClick);
 //inicio del juego
 juego();
-//selectores
-let count = document.querySelectorAll("td");
-let winCount = document.querySelector("#win");
-let loseCount = document.querySelector("#lose");
+
